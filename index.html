@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TasteCoffee</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<style>
+:root {
+    --primary-orange: #ff5e00;
+    --dark-bg: #121212;
+    --text-color: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --nav-bg: rgba(255, 255, 255, 1);
+    --nav-link-color: black;
+    --footer-overlay: rgba(58, 55, 55, 0.9);
+}
+
+/* Light theme overrides applied when body has .light-theme */
+.light-theme {
+    --dark-bg: #ffffff;
+    --text-color: #111111;
+    --card-bg: rgba(0, 0, 0, 0.04);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --nav-bg: rgba(255, 255, 255, 0.95);
+    --nav-link-color: black;
+    --footer-overlay: rgba(255,255,255,0.92);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    overflow-x: hidden;
+    transition: background-color 240ms ease, color 240ms ease;
+}
+
+.header {
+    position: relative;
+    min-height: 60vh;
+    background-image: url('Coffee cup.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 0;
+}
+
+.header > * { position: relative; z-index: 1; }
+
+.hero { display: flex; align-items: center; justify-content: flex-start; padding: 60px 10%; flex: 1 0 auto; text-align: left; }
+.hero-content { max-width: 600px; width: 100%; }
+.hero-content h1 { margin: 0 0 15px 0; font-size: 2rem; }
+.hero-content p { margin: 0 0 20px 0; opacity: 0.95; }
+
+@media (max-width: 900px) {
+    .hero { justify-content: center; text-align: center; padding: 40px 6%; }
+    .hero-content { max-width: 100%; }
+    .hero-content h1 { font-size: 1.6rem; }
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 240ms ease, border-color 240ms ease;
+}
+.glass-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.45); }
+
+@keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.9); } }
+.order-now-btn, .add-to-cart { background: var(--primary-orange); color: white; border: none; padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: all 0.25s; }
+.btn-click-animate { animation: bounce 0.3s ease-in-out; background: #ff8c4b !important; }
+
+/* Navigation */
+nav { display: flex; align-items: center; gap: 12px; padding: 14px 6%; position: relative; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.logo, .logoo { font-size: 1.4rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; z-index: 2; display: inline-block; }
+.logo { color: white; }
+.logoo { color: var(--primary-orange); }
+.coffee-splash img { width: 48px !important; height: 48px !important; object-fit: cover; border-radius: 8px; vertical-align: middle; margin-left: 0 !important; }
+
+nav ul { display: flex; list-style: none; gap: 16px; background-color: var(--nav-bg); padding: 8px 14px; border-radius: 30px; margin: 0 auto; align-items: center; z-index: 5; max-width: 760px; justify-content: center; overflow-x: auto; }
+nav ul::-webkit-scrollbar { height: 6px; }
+
+#digital-clock { position: absolute; right: 100px; top: 18px; font-weight: 700; font-size: 15px; color: var(--nav-link-color); background: transparent; padding: 6px 10px; border-radius: 8px; z-index: 6; user-select: none; }
+.theme-toggle { position: absolute; right: 20px; top: 12px; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; background: var(--nav-bg); color: var(--nav-link-color); border: 1px solid rgba(0,0,0,0.06); border-radius: 999px; cursor: pointer; z-index: 6; transition: background-color 200ms ease, color 200ms ease, transform 120ms ease; }
+.theme-toggle:focus { outline: 2px solid var(--primary-orange); transform: translateY(-2px); }
+.theme-toggle i { pointer-events: none; }
+
+nav ul li a { color: var(--nav-link-color); text-align: center; text-decoration: none; font-weight: bold; padding-bottom: 8px; position: relative; display: inline-block; transition: transform 160ms cubic-bezier(.2,.8,.2,1), color 160ms; }
+nav ul li a::after { content: ""; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%) scale(0); width: 8px; height: 8px; border-radius: 50%; background: var(--primary-orange); opacity: 0; transition: transform 220ms cubic-bezier(.2,.8,.2,1), opacity 220ms; }
+nav ul li a:hover { transform: translateY(-3px) scale(1.06); }
+nav ul li a:hover::after, nav ul li a.active::after { transform: translateX(-50%) scale(1); opacity: 1; }
+nav ul li a.active { transform: translateY(-3px) scale(1.06); }
+
+/* Grid / Carousel Layout */
+.products { padding: 10px 5%; text-align: center; position: relative; }
+.grid { --gap: 12px; display: flex; gap: var(--gap); margin-top: 40px; transition: transform 400ms cubic-bezier(.22,.9,.15,1); will-change: transform; }
+.carousel { overflow: hidden; position: relative; }
+.grid .card { flex: 0 0 calc((100% - 2 * var(--gap)) / 3); box-sizing: border-box; }
+.card img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; display: block; }
+
+/* Carousel arrows */
+.carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background-color: var(--primary-orange); color: white; border: none; cursor: pointer; z-index: 5; }
+.carousel-btn:hover { background: rgba(0,0,0,0.75); }
+.carousel-prev { left: 12px; }
+.carousel-next { right: 12px; }
+.carousel-btn:focus { outline: 2px solid var(--primary-orange); }
+
+.main-container { background-image: url('background.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; padding: 40px 0; }
+.footer { position: relative; background-image: url('footer.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; color: #fff; padding: 48px 10%; overflow: hidden; }
+.footer::before { content: ""; position: absolute; inset: 0; background: var(--footer-overlay); z-index: 0; }
+.footer .footer-grid, .footer .footer-bottom { position: relative; z-index: 1; }
+.footer .footer-grid { display: flex; gap: 24px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+.footer .col { flex: 1 1 220px; min-width: 200px; }
+.footer .logo-large { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+.social-icons { display: flex; gap: 10px; margin-top: 8px; }
+.social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); color: white; text-decoration: none; }
+.social-icons a:hover { background-color:#fff; color: #121212; }
+.footer h4 { margin: 0 0 8px 0; font-size: 1rem; }
+.footer p, .footer li { margin: 6px 0; color: rgba(255,255,255,0.92); }
+.footer ul { list-style: none; padding: 0; margin: 0; }
+.footer a { color: inherit; text-decoration: none; }
+.footer a:hover { color: var(--primary-orange); }
+.footer .small { font-size: 0.9rem; opacity: 0.85; }
+.footer-bottom { margin-top: 22px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; text-align: center; font-size: 0.9rem; opacity: 0.9; }
+
+/* Responsive breakpoints: 3 (desktop) | 2 (tablet) | 1 (mobile) cards per view */
+@media (max-width: 1024px) {
+    .grid .card { flex: 0 0 calc((100% - 1 * var(--gap)) / 2); }
+    .card img { height: 150px; }
+}
+
+@media (max-width: 600px) {
+    /* Nav becomes stacked/wrapping */
+    nav { padding: 12px 5%; }
+    nav ul { order: 3; width: 100%; margin: 10px 0 0 0; max-width: none; gap: 12px; justify-content: space-around; }
+    #digital-clock { position: static; order: 2; margin-left: auto; right: auto; top: auto; }
+    .theme-toggle { position: static; order: 2; margin-left: 8px; }
+    .coffee-splash img { width: 44px !important; height: 44px !important; }
+
+    .hero { padding: 30px 6%; }
+    .hero-content h1 { font-size: 1.4rem; }
+
+    /* single card per view on small screens */
+    .grid { gap: 14px; }
+    .grid .card { flex: 0 0 100%; }
+    .card img { height: 200px; }
+
+    .carousel-btn { width: 36px; height: 36px; }
+}
+
+</style>
+<body>
+
+<div class="header">
+    <nav>
+        <div class="logo">Cof</div>
+        <div class="logoo">fee</div>
+        <div class="coffee-splash">
+            <img src="logo.jpg" alt="" width="100px" height="100px" style="mix-blend-mode: multiply; margin-left: -500px;">
+        </div>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="news.html">News</a></li>
+        </ul>
+        <!-- Digital clock and theme toggle (added without changing page structure) -->
+        <div id="digital-clock" aria-live="polite" title="Current time">00:00:00</div>
+        <button class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">
+            <i id="theme-icon" class="fa-regular fa-moon"></i>
+        </button>
+
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Good Coffee Will Always Find The Audience</h1>
+            <p>We provide a variety of unique and Best Coffees</p>
+            <button class="order-now-btn">Order Now</button>
+        </div>
+    </section>
+</div>
+
+<div class="main-content main-container">
+    <section class="products">
+        <h2>Our Special Coffee</h2><hr>
+    <div class="carousel" tabindex="0">
+            <button class="carousel-btn carousel-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="grid">
+            <div class="card glass-card">
+                <img src="Americano.jpg" alt="Coffee">
+                <h3>Americano Pure Grades</h3>
+                <p>2500 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+            <div class="card glass-card">
+                <img src="Guatemala.jpg" alt="Coffee">
+                <h3>Guatemala Coffee</h3>
+                <p>3000 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+            <div class="card glass-card">
+                <img src="kenya.jpg" alt="Coffee">
+                <h3>Kenya Coffee</h3>
+                <p>3000 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+
+            <div class="card glass-card">
+                <img src="iced coffee.jpg" alt="Coffee">
+                <h3>Iced Coffee</h3>
+                <p>3000 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+            <div class="card glass-card">
+                <img src="mocha.jpg" alt="Coffee">
+                <h3>Mocha Coffee</h3>
+                <p>3000 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+
+            <div class="card glass-card">
+                <img src="latte.jpg" alt="Coffee">
+                <h3>Latte Coffee</h3>
+                <p>3000 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+
+            </div>
+            <button class="carousel-btn carousel-next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <section class="products">
+       <hr> <h2>Our Other Breakfast Items</h2>
+    <div class="carousel" tabindex="0">
+            <button class="carousel-btn carousel-prev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="grid">
+            <div class="card glass-card">
+                <img src="Italian Vege.jpg" alt="Sandwich">
+                <h3>Veggie Italian</h3>
+                <p>7500 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+            <div class="card glass-card">
+                <img src="chicken chipotle.jpg" alt="Burger">
+                <h3>Chipotle Chicken</h3>
+                <p>1500 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+            <div class="card glass-card">
+                <img src="sandwich.jpg" alt="BLT">
+                <h3>BLT Sandwich</h3>
+                <p>2500 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+             <div class="card glass-card">
+                <img src="chicken receipt.jpg" alt="chicken recipe">
+                <h3>chicken recipe</h3>
+                <p>16000 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+            </div>
+
+                <div class="card glass-card">
+                <img src="croissaint.jpg" alt="Croissant">
+                <h3>Croissant</h3>
+                <p>2500 Frw</p>
+                <button class="add-to-cart">Order Now</button>  
+                </div>
+
+                 <div class="card glass-card">
+                <img src="pancakes.jpg" alt="pancakes">
+                <h3>Pancakes</h3>
+                <p>3500 Frw</p>
+                <button class="add-to-cart">Order Now</button>
+                 </div>
+
+            </div>
+            <button class="carousel-btn carousel-next" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </section>
+</div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="col">
+                <div class="logo-large">Coffee</div>
+                <p class="small">Taste the best coffee from around the world.</p>
+                <div class="social-icons" aria-label="Social media links">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li class="small">Email: <a href="mailto:info@tastecoffee.example">info@tastecoffee.example</a></li>
+                    <li class="small">Location: Kigali, Rwanda</li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h4>View Guides</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="news.html">News</a></li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h4>Opening Hours</h4>
+                <ul>
+                    <li class="small">Mon - Fri: 7:00 - 19:00</li>
+                    <li class="small">Sat: 8:00 - 17:00</li>
+                    <li class="small">Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; <span id="year"></span> Coffee. All rights reserved.</div>
+    </footer>
+
+    <script>
+        let cartCount = 0;
+        const cartDisplay = document.getElementById('cart-count');
+        const buttons = document.querySelectorAll('.add-to-cart');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 1. Increment Cart
+                cartCount++;
+                cartDisplay.innerText = cartCount;
+
+                // 2. Add Animation Class
+                button.classList.add('btn-click-animate');
+                button.innerText = "Added!";
+
+                // 3. Remove animation and reset text after 500ms
+                setTimeout(() => {
+                    button.classList.remove('btn-click-animate');
+                    button.innerText = "Order Now";
+                }, 500);
+                
+                // Console log for verification
+                console.log(`Item added. Total items: ${cartCount}`);
+            });
+        });
+    </script>
+
+    <script>
+        // Digital clock and theme toggle
+        (function() {
+            const clockEl = document.getElementById('digital-clock');
+            const toggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+
+            // Clock: show HH:MM:SS (24-hour) and update every 250ms for smooth seconds
+            function pad(n) { return n.toString().padStart(2, '0'); }
+            function updateClock() {
+                const now = new Date();
+                const h = pad(now.getHours());
+                const m = pad(now.getMinutes());
+                const s = pad(now.getSeconds());
+                clockEl.textContent = `${h}:${m}:${s}`;
+            }
+            setInterval(updateClock, 250);
+            updateClock();
+
+            // Theme: default to dark, allow toggle, persist in localStorage
+            const STORAGE_KEY = 'tastecoffee_theme';
+            function applyTheme(name) {
+                if (name === 'light') {
+                    document.body.classList.add('light-theme');
+                    toggle.setAttribute('aria-pressed', 'true');
+                    themeIcon.className = 'fa-solid fa-sun';
+                } else {
+                    document.body.classList.remove('light-theme');
+                    toggle.setAttribute('aria-pressed', 'false');
+                    themeIcon.className = 'fa-regular fa-moon';
+                }
+            }
+
+            // Initialize from storage or system preference
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored === 'light' || stored === 'dark') {
+                applyTheme(stored);
+            } else {
+                const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+                applyTheme(prefersLight ? 'light' : 'dark');
+            }
+
+            toggle.addEventListener('click', () => {
+                const isLight = document.body.classList.contains('light-theme');
+                const next = isLight ? 'dark' : 'light';
+                applyTheme(next);
+                try { localStorage.setItem(STORAGE_KEY, next); } catch (e) { /* ignore */ }
+            });
+
+            // Expose small helper for other scripts if needed
+            window.TasteCoffee = window.TasteCoffee || {};
+            window.TasteCoffee.setTheme = applyTheme;
+        })();
+    </script>
+
+    <script>
+        // Footer: set current year
+        document.getElementById('year').innerText = new Date().getFullYear();
+        // Ensure footer guide links have no text-decoration (in case UA styles apply)
+        document.querySelectorAll('footer a').forEach(a => a.style.textDecoration = 'none');
+    </script>
+
+    <script>
+
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't call e.preventDefault() here so navigation works.
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // On page load, mark the correct nav link as active based on the current URL/path.
+        (function setActiveFromLocation() {
+            const current = window.location.pathname.split('/').pop();
+            // If server serves directory root (''), treat as index.html
+            const normalized = current === '' ? 'index.html' : current;
+            navLinks.forEach(l => {
+                const href = l.getAttribute('href');
+                if (!href) return;
+                // Normalize and compare only filenames/paths (ignore full URLs)
+                const linkFile = href.split('/').pop();
+                if (linkFile === normalized) {
+                    navLinks.forEach(x => x.classList.remove('active'));
+                    l.classList.add('active');
+                }
+            });
+        })();
+    </script>
+    
+    <script>
+        // Carousel paging: show 3 cards per view and move by pages
+        (function() {
+            const CARDS_PER_PAGE = 3;
+
+            function setupCarousel(carousel) {
+                const track = carousel.querySelector('.grid');
+                const prevBtn = carousel.querySelector('.carousel-prev');
+                const nextBtn = carousel.querySelector('.carousel-next');
+                const cards = Array.from(track.children);
+                let page = 0;
+                const totalPages = Math.max(1, Math.ceil(cards.length / CARDS_PER_PAGE));
+
+                function update() {
+                    // Determine the left offset of the target card for this page and translate the track
+                    const targetIndex = page * CARDS_PER_PAGE;
+                    let moveX = 0;
+                    if (cards[targetIndex]) {
+                        moveX = cards[targetIndex].offsetLeft;
+                    }
+                    track.style.transform = `translateX(-${moveX}px)`;
+                    prevBtn.disabled = page === 0;
+                    nextBtn.disabled = page >= totalPages - 1;
+                    prevBtn.style.opacity = prevBtn.disabled ? '0.45' : '1';
+                    nextBtn.style.opacity = nextBtn.disabled ? '0.45' : '1';
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    page = Math.max(0, page - 1);
+                    update();
+                });
+                nextBtn.addEventListener('click', () => {
+                    page = Math.min(totalPages - 1, page + 1);
+                    update();
+                });
+
+                // Keyboard support
+                carousel.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') prevBtn.click();
+                    if (e.key === 'ArrowRight') nextBtn.click();
+                });
+
+                // Recalculate on resize
+                window.addEventListener('resize', () => {
+                    // small debounce
+                    clearTimeout(carousel._resizeTimeout);
+                    carousel._resizeTimeout = setTimeout(update, 120);
+                });
+
+                // initial
+                // ensure track uses the width of the visible area (no wrapping)
+                track.style.display = 'flex';
+                track.style.flexWrap = 'nowrap';
+                update();
+            }
+
+            // Setup all carousels on the page
+            document.querySelectorAll('.carousel').forEach(setupCarousel);
+
+         
+        })();
+    </script>
+</body>
+</html>

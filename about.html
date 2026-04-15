@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<style>
+    :root {
+    --primary-orange: #ff5e00;
+    --dark-bg: #121212;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
+    color: white;
+    overflow-x: hidden;
+}
+
+.header {
+    position: relative; 
+    min-height: 70vh; 
+    background-image: url('about background.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+.header > * {
+    position: relative;
+    z-index: 1;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 60px 10%;
+    flex: 1 0 auto;
+    text-align: left;
+}
+
+.hero-content {
+    max-width: 600px; 
+    width: 100%;
+}
+
+.hero-content h1 {
+    margin: 0 0 15px 0;
+    font-size: 2rem;
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1), color 0.3s ease;
+    will-change: transform, color;
+}
+.hero-content p { margin: 0 0 20px 0; opacity: 0.95; }
+
+@media (max-width: 768px) {
+    .hero {
+        justify-content: center;
+        text-align: center;
+        padding: 40px 6%;
+    }
+    .hero-content { max-width: 100%; }
+    .hero-content h1 { font-size: 1.6rem; }
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+}
+
+/* Subtle floating animation for buttons */
+@keyframes button-float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0); }
+}
+
+.animated-btn {
+    background: linear-gradient(90deg, #ff7a2d 0%, #ff5e00 50%, #ff8c4b 100%);
+    box-shadow: 0 8px 20px rgba(255,94,0,0.18);
+    border: none;
+    padding: 12px 26px;
+    border-radius: 28px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    transform: translateZ(0);
+    transition: transform 220ms cubic-bezier(.2,.8,.2,1), box-shadow 220ms;
+    will-change: transform;
+}
+
+.animated-btn:hover,
+.animated-btn:focus {
+    animation: button-float 900ms ease-in-out 0s both;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(255,94,0,0.22);
+}
+
+.glass-card .hero-content h1 {
+    /* when the card is hovered, lift and tint the H1 for visual feedback */
+    transition: inherit;
+}
+
+.glass-card:hover .hero-content h1 {
+    transform: translateY(-6px);
+    color: var(--primary-orange);
+}
+
+.order-now-btn, .add-to-cart {
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+
+.btn-click-animate {
+    animation: bounce 0.3s ease-in-out;
+    background: #ff8c4b !important;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Header logo styling (ensure .logo has its intended appearance) */
+.logo, nav > .logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    transition-behavior: smooth;
+    letter-spacing: 0.6px;
+    z-index: 2; 
+    display: inline-block;
+}
+.logoo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-left: -325px;
+    color: var(--primary-orange);
+    text-transform: uppercase;
+    transition-behavior: smooth;
+    letter-spacing: 0.6px;
+    z-index: 2; 
+    display: inline-block;
+}
+.coffee-splash img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+nav ul { 
+    display: flex;
+    list-style: none; 
+    gap: 30px; 
+    background-color: white;
+    width: 23pc;
+    padding: 8px 20px;
+    border-radius: 30px;
+
+}
+nav ul li a {
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    padding-bottom: 8px; 
+    position: relative;
+    display: inline-block; 
+    transition: transform 160ms cubic-bezier(.2,.8,.2,1), color 160ms;
+    will-change: transform;
+}
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%) scale(0);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary-orange);
+    opacity: 0;
+    transition: transform 220ms cubic-bezier(.2,.8,.2,1), opacity 220ms;
+}
+
+nav ul li a:hover {
+    transform: translateY(-3px) scale(1.06);
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+nav ul li a.active {
+    transform: translateY(-3px) scale(1.06);
+}
+
+
+.footer {
+    /* background image with a separate overlay for adjustable opacity */
+    position: relative;
+    background-image: url('footer.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: #fff;
+    padding: 48px 10%;
+    overflow: hidden;
+}
+.footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* change this rgba alpha to control how opaque the overlay is */
+    background: rgba(58, 55, 55, 0.9);
+    z-index: 0;
+}
+.footer .footer-grid,
+.footer .footer-bottom {
+    position: relative;
+    z-index: 1;
+}
+.footer .footer-grid {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.footer .col {
+    flex: 1 1 220px; /* responsive columns */
+    min-width: 200px;
+}
+.footer .logo-large { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+.social-icons { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 8px; }
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    text-decoration: none; /* ensure no underline for social links */
+}
+.social-icons a:hover { background-color:#fff; color: #121212; }
+.footer h4 { margin: 0 0 8px 0; font-size: 1rem; }
+.footer p, .footer li { margin: 6px 0; color: rgba(255,255,255,0.92); }
+.footer ul { list-style: none; padding: 0; margin: 0; }
+.footer a { color: inherit; text-decoration: none; }
+.footer a:hover { color: var(--primary-orange); }
+.footer .small { font-size: 0.9rem; opacity: 0.85; }
+.footer-bottom { margin-top: 22px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; text-align: center; font-size: 0.9rem; opacity: 0.9; }
+
+</style>
+<body>
+    <div class="header">
+    <nav>
+        <div class="logo">Cof</div>
+        <div class="logoo">fee</div>
+        <div class="coffee-splash">
+            <img src="logo.jpg" alt="" width="100px" height="100px" style="mix-blend-mode: multiply; margin-left: -500px;">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="news.html">News</a></li>
+        </ul>
+        <div class="cart-container" style="color: white; font-size: 17pt; font-weight: 500;">Cart<i class="fa-solid fa-cart-arrow-down"></i><span id="cart-count"></span></div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content glass-card" style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
+            <h1>Our Story</h1>
+            <p>Our journey began with a simple obsession: finding 
+                the perfect roast. Today, we bring that artisanal spirit <br>
+                 to your neighborhood. From the way we source our small-batch beans to 
+                 the meticulous temperature of our water, every detail is engineered for your satisfaction.</p>
+            <div style="margin-top:18px; display:flex; gap:12px; align-items:center;">
+                <button class="animated-btn order-now-btn add-to-cart"><a href="index.html" style="text-decoration: none; color: inherit;">Order Now</a></button>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+ <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="col">
+                <div class="logo-large">Coffee</div>
+                <p class="small">Taste the best coffee from around the world.</p>
+                <div class="social-icons" aria-label="Social media links">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li class="small">Email: <a href="mailto:info@tastecoffee.example">info@tastecoffee.example</a></li>
+                    <li class="small">Location: Kigali, Rwanda</li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h4>View Guides</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="news.html">News</a></li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h4>Opening Hours</h4>
+                <ul>
+                    <li class="small">Mon - Fri: 7:00 - 19:00</li>
+                    <li class="small">Sat: 8:00 - 17:00</li>
+                    <li class="small">Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; <span id="year"></span> Coffee. All rights reserved.</div>
+    </footer>
+ <script>
+        let cartCount = 0;
+        const cartDisplay = document.getElementById('cart-count');
+        const buttons = document.querySelectorAll('.add-to-cart');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 1. Increment Cart
+                cartCount++;
+                cartDisplay.innerText = cartCount;
+
+                // 2. Add Animation Class
+                button.classList.add('btn-click-animate');
+
+                // 3. Remove animation and reset text after 500ms
+                setTimeout(() => {
+                    button.classList.remove('btn-click-animate');
+                    button.innerText = "Order Now";
+                }, 500);
+                
+                // Console log for verification
+                console.log(`Item added. Total items: ${cartCount}`);
+            });
+        });
+    </script>
+
+    <script>
+        // Footer: set current year
+        document.getElementById('year').innerText = new Date().getFullYear();
+        // Ensure footer guide links have no text-decoration (in case UA styles apply)
+        document.querySelectorAll('footer a').forEach(a => a.style.textDecoration = 'none');
+    </script>
+
+    <script>
+
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't call e.preventDefault() here so navigation works.
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // On page load, mark the correct nav link as active based on the current URL/path.
+        (function setActiveFromLocation() {
+            const current = window.location.pathname.split('/').pop();
+            // If server serves directory root (''), treat as index.html
+            const normalized = current === '' ? 'index.html' : current;
+            navLinks.forEach(l => {
+                const href = l.getAttribute('href');
+                if (!href) return;
+                // Normalize and compare only filenames/paths (ignore full URLs)
+                const linkFile = href.split('/').pop();
+                if (linkFile === normalized) {
+                    navLinks.forEach(x => x.classList.remove('active'));
+                    l.classList.add('active');
+                }
+            });
+        })();
+    </script>
+    
+    <script>
+        // Carousel paging: show 3 cards per view and move by pages
+        (function() {
+            const CARDS_PER_PAGE = 3;
+
+            function setupCarousel(carousel) {
+                const track = carousel.querySelector('.grid');
+                const prevBtn = carousel.querySelector('.carousel-prev');
+                const nextBtn = carousel.querySelector('.carousel-next');
+                const cards = Array.from(track.children);
+                let page = 0;
+                const totalPages = Math.max(1, Math.ceil(cards.length / CARDS_PER_PAGE));
+
+                function update() {
+                    // Determine the left offset of the target card for this page and translate the track
+                    const targetIndex = page * CARDS_PER_PAGE;
+                    let moveX = 0;
+                    if (cards[targetIndex]) {
+                        moveX = cards[targetIndex].offsetLeft;
+                    }
+                    track.style.transform = `translateX(-${moveX}px)`;
+                    prevBtn.disabled = page === 0;
+                    nextBtn.disabled = page >= totalPages - 1;
+                    prevBtn.style.opacity = prevBtn.disabled ? '0.45' : '1';
+                    nextBtn.style.opacity = nextBtn.disabled ? '0.45' : '1';
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    page = Math.max(0, page - 1);
+                    update();
+                });
+                nextBtn.addEventListener('click', () => {
+                    page = Math.min(totalPages - 1, page + 1);
+                    update();
+                });
+
+                // Keyboard support
+                carousel.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') prevBtn.click();
+                    if (e.key === 'ArrowRight') nextBtn.click();
+                });
+
+                // Recalculate on resize
+                window.addEventListener('resize', () => {
+                    // small debounce
+                    clearTimeout(carousel._resizeTimeout);
+                    carousel._resizeTimeout = setTimeout(update, 120);
+                });
+
+                // initial
+                // ensure track uses the width of the visible area (no wrapping)
+                track.style.display = 'flex';
+                track.style.flexWrap = 'nowrap';
+                update();
+            }
+
+            // Setup all carousels on the page
+            document.querySelectorAll('.carousel').forEach(setupCarousel);
+        })();
+    </script>
+</body>
+</html>

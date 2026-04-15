@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<style>
+    :root {
+    --primary-orange: #ff5e00;
+    --dark-bg: #121212;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
+    color: white;
+    overflow-x: hidden;
+}
+
+.header {
+    position: relative; 
+    min-height: 70vh; 
+    background-image: url('Contact.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+.header > * {
+    position: relative;
+    z-index: 1;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 60px 10%;
+    flex: 1 0 auto;
+    text-align: left;
+}
+
+.hero-content {
+    max-width: 600px; 
+    width: 100%;
+}
+
+.hero-content h1 { margin: 0 0 15px 0; font-size: 2rem; }
+.hero-content p { margin: 0 0 20px 0; opacity: 0.95; }
+
+@media (max-width: 768px) {
+    .hero {
+        justify-content: center;
+        text-align: center;
+        padding: 40px 6%;
+    }
+    .hero-content { max-width: 100%; }
+    .hero-content h1 { font-size: 1.6rem; }
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+}
+
+.order-now-btn, .add-to-cart {
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+
+.btn-click-animate {
+    animation: bounce 0.3s ease-in-out;
+    background: #ff8c4b !important;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Header logo styling (ensure .logo has its intended appearance) */
+.logo, nav > .logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    transition-behavior: smooth;
+    letter-spacing: 0.6px;
+    z-index: 2; 
+    display: inline-block;
+}
+.logoo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-left: -325px;
+    color: var(--primary-orange);
+    text-transform: uppercase;
+    transition-behavior: smooth;
+    letter-spacing: 0.6px;
+    z-index: 2; 
+    display: inline-block;
+}
+.coffee-splash img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+nav ul { 
+    display: flex;
+    list-style: none; 
+    gap: 30px; 
+    background-color: white;
+    width: 23pc;
+    padding: 8px 20px;
+    border-radius: 30px;
+
+}
+nav ul li a {
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    padding-bottom: 8px; 
+    position: relative;
+    display: inline-block; 
+    transition: transform 160ms cubic-bezier(.2,.8,.2,1), color 160ms;
+    will-change: transform;
+}
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%) scale(0);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary-orange);
+    opacity: 0;
+    transition: transform 220ms cubic-bezier(.2,.8,.2,1), opacity 220ms;
+}
+
+nav ul li a:hover {
+    transform: translateY(-3px) scale(1.06);
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+nav ul li a.active {
+    transform: translateY(-3px) scale(1.06);
+}
+.footer {
+    /* background image with a separate overlay for adjustable opacity */
+    position: relative;
+    background-image: url('footer.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: #fff;
+    padding: 48px 10%;
+    overflow: hidden;
+}
+.footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* change this rgba alpha to control how opaque the overlay is */
+    background: rgba(58, 55, 55, 0.9);
+    z-index: 0;
+}
+.footer .footer-grid,
+.footer .footer-bottom {
+    position: relative;
+    z-index: 1;
+}
+.footer .footer-grid {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.footer .col {
+    flex: 1 1 220px; /* responsive columns */
+    min-width: 200px;
+}
+.footer .logo-large { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+.social-icons { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 8px; }
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    text-decoration: none; /* ensure no underline for social links */
+}
+.social-icons a:hover { background-color:#fff; color: #121212; }
+.footer h4 { margin: 0 0 8px 0; font-size: 1rem; }
+.footer p, .footer li { margin: 6px 0; color: rgba(255,255,255,0.92); }
+.footer ul { list-style: none; padding: 0; margin: 0; }
+.footer a { color: inherit; text-decoration: none; }
+.footer a:hover { color: var(--primary-orange); }
+.footer .small { font-size: 0.9rem; opacity: 0.85; }
+.footer-bottom { margin-top: 22px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; text-align: center; font-size: 0.9rem; opacity: 0.9; }
+/* Container */
+
+.container {
+  perspective: 1000px;
+}
+
+/* Card */
+.card {
+  width: 520px;
+margin: 50px auto;
+  height: 500px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+
+.card.flip {
+  transform: rotateY(180deg);
+}
+
+/* Sides */
+.side {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  border-radius: 10px;
+}
+
+/* Glass-style panels for Login / Register */
+.side {
+    background: rgba(255,255,255,0.04); /* subtle translucent panel */
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: white;
+    transform: rotateY(0deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: white;
+    box-sizing: border-box;
+}
+
+/* Password wrapper to position the eye toggle on the right with no background/container */
+.pw-wrapper {
+    position: relative;
+}
+.pw-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent; /* no background */
+    padding: 0;
+    margin: 0;
+    color: rgba(255,255,255,0.88);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    line-height: 1;
+}
+.pw-toggle:focus {
+    outline: 2px solid rgba(255,94,0,0.2);
+    border-radius: 4px;
+}
+
+input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+button.switch {
+    background: transparent;
+    color: var(--primary-orange);
+    margin-top: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+/* Text */
+h2 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  font-size: 14px;
+}
+/* Error styles for form validation */
+.error {
+    color: #ffb3a7;
+    font-size: 13px;
+    min-height: 18px;
+    margin-bottom: 6px;
+}
+.input-error {
+    outline: 2px solid rgba(255,90,0,0.35);
+    box-shadow: 0 4px 14px rgba(255,94,0,0.08);
+}
+</style>
+<body>
+    
+<div class="header">
+    <nav>
+        <div class="logo">Cof</div>
+        <div class="logoo">fee</div>
+        <div class="coffee-splash">
+            <img src="logo.jpg" alt="" width="100px" height="100px" style="mix-blend-mode: multiply; margin-left: -500px;">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="contact.html"  class="active">Contact</a></li>
+            <li><a href="news.html">News</a></li>
+        </ul>
+        <div class="cart-container" style="color: white; font-size: 17pt; font-weight: 500;">Cart<i class="fa-solid fa-cart-arrow-down"></i><span id="cart-count"></span></div>
+    </nav>
+        <div class="container">
+    <div class="card" id="card">
+
+        <!-- LOGIN SIDE -->
+        <div class="side front">
+            <h2>Log In</h2>
+            <form id="loginForm" novalidate>
+                <input id="username" name="username" type="text" placeholder="Username" aria-label="Username" required>
+                <div class="error" id="login-username-error" aria-live="polite"></div>
+
+                                <div class="pw-wrapper">
+                                    <input id="login-password" name="password" type="password" placeholder="Password" aria-label="Password" required>
+                                    <button type="button" class="pw-toggle" data-target="login-password" aria-label="Show password">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="error" id="login-password-error" aria-live="polite"></div>
+
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account?</p>
+            <button class="switch" onclick="flipCard()">Register</button>
+        </div>
+
+        <!-- REGISTER SIDE -->
+        <div class="side back">
+            <h2>Sign Up</h2>
+            <form id="signupForm" novalidate>
+                <input id="username" name="username" type="text" placeholder="Username" aria-label="Username" required>
+                <div class="error" id="signup-username-error" aria-live="polite"></div>
+
+                <input id="signup-email" name="email" type="email" placeholder="Email" aria-label="Email" required>
+                <div class="error" id="signup-email-error" aria-live="polite"></div>
+
+                                <div class="pw-wrapper">
+                                    <input id="signup-password" name="password" type="password" placeholder="Password" aria-label="Password (min 6 chars)" required>
+                                    <button type="button" class="pw-toggle" data-target="signup-password" aria-label="Show password">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="error" id="signup-password-error" aria-live="polite"></div>
+
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account?</p>
+            <button class="switch" onclick="flipCard()">Login</button>
+        </div>
+
+    </div>
+</div>
+
+
+      <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="col">
+                <div class="logo-large">Coffee</div>
+                <p class="small">Taste the best coffee from around the world.</p>
+                <div class="social-icons" aria-label="Social media links">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li class="small">Email: <a href="mailto:info@tastecoffee.example">info@tastecoffee.example</a></li>
+                    <li class="small">Location: Kigali, Rwanda</li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h4>View Guides</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="news.html">News</a></li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h4>Opening Hours</h4>
+                <ul>
+                    <li class="small">Mon - Fri: 7:00 - 19:00</li>
+                    <li class="small">Sat: 8:00 - 17:00</li>
+                    <li class="small">Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; <span id="year"></span> Coffee. All rights reserved.</div>
+    </footer>
+    
+        <script>
+        // Flip card for login/register
+        function flipCard() {
+            document.getElementById("card").classList.toggle("flip");
+        }
+
+        // --- Validation helpers ---
+        function setError(inputEl, message) {
+            const errEl = document.getElementById(inputEl.id + '-error');
+            if (errEl) errEl.textContent = message || '';
+            if (message) {
+                inputEl.classList.add('input-error');
+                inputEl.setAttribute('aria-invalid', 'true');
+            } else {
+                inputEl.classList.remove('input-error');
+                inputEl.removeAttribute('aria-invalid');
+            }
+        }
+
+        function validateLogin() {
+            const username = document.getElementById('login-username');
+            const password = document.getElementById('login-password');
+            let ok = true;
+
+            if (!username.value.trim()) {
+                setError(username, 'Username is required');
+                ok = false;
+            } else {
+                setError(username, '');
+            }
+
+            if (!password.value) {
+                setError(password, 'Password is required');
+                ok = false;
+            } else if (password.value.length < 4) {
+                setError(password, 'Password must be at least 4 characters');
+                ok = false;
+            } else {
+                setError(password, '');
+            }
+
+            return ok;
+        }
+
+        function validateSignup() {
+            const username = document.getElementById('signup-username');
+            const email = document.getElementById('signup-email');
+            const password = document.getElementById('signup-password');
+            let ok = true;
+
+            if (!username.value.trim()) {
+                setError(username, 'Username is required');
+                ok = false;
+            } else if (username.value.trim().length < 3) {
+                setError(username, 'Username must be at least 3 characters');
+                ok = false;
+            } else {
+                setError(username, '');
+            }
+
+            const emailVal = email.value.trim();
+            // Simple email regex (sufficient for client-side validation)
+            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailVal) {
+                setError(email, 'Email is required');
+                ok = false;
+            } else if (!emailRe.test(emailVal)) {
+                setError(email, 'Please enter a valid email');
+                ok = false;
+            } else {
+                setError(email, '');
+            }
+
+            if (!password.value) {
+                setError(password, 'Password is required');
+                ok = false;
+            } else if (password.value.length < 6) {
+                setError(password, 'Password must be at least 6 characters');
+                ok = false;
+            } else {
+                setError(password, '');
+            }
+
+            return ok;
+        }
+
+        // Attach handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (validateLogin()) {
+                        // TODO: replace with real authentication flow
+                        console.log('Login valid — submit to server');
+                        alert('Login successful (client-side).');
+                        loginForm.reset();
+                    }
+                });
+
+                // Clear errors while typing
+                ['login-username','login-password'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.addEventListener('input', () => setError(el, ''));
+                });
+            }
+
+            if (signupForm) {
+                signupForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (validateSignup()) {
+                        // TODO: replace with real signup flow
+                        console.log('Signup valid — submit to server');
+                        alert('Signup successful (client-side).');
+                        signupForm.reset();
+                        // Flip back to login so user can log in
+                        flipCard();
+                    }
+                });
+
+                ['signup-username','signup-email','signup-password'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.addEventListener('input', () => setError(el, ''));
+                });
+            }
+
+            // Set current year in footer
+            const yearEl = document.getElementById('year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+            // Password show/hide toggle buttons (eye icon)
+            document.querySelectorAll('.pw-toggle').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = btn.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    if (!input) return;
+                    const icon = btn.querySelector('i');
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        btn.setAttribute('aria-label', 'Hide password');
+                        if (icon) {
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        }
+                    } else {
+                        input.type = 'password';
+                        btn.setAttribute('aria-label', 'Show password');
+                        if (icon) {
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    }
+                });
+            });
+
+        });
+        </script>
+</body>
+</html>

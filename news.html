@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<style>
+    :root {
+    --primary-orange: #ff5e00;
+    --dark-bg: #121212;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
+    color: white;
+    overflow-x: hidden;
+}
+
+.header {
+    position: relative; 
+    min-height: 70vh; 
+    background-image: url('news.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;
+    display: flex;
+    flex-direction: column;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+.header > * {
+    position: relative;
+    z-index: 1;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 60px 10%;
+    flex: 1 0 auto;
+    text-align: left;
+}
+
+.hero-content {
+    max-width: 600px; 
+    width: 100%;
+}
+
+.hero-content h1 { margin: 0 0 15px 0; font-size: 2rem; }
+.hero-content p { margin: 0 0 20px 0; opacity: 0.95; }
+
+@media (max-width: 768px) {
+    .hero {
+        justify-content: center;
+        text-align: center;
+        padding: 40px 6%;
+    }
+    .hero-content { max-width: 100%; }
+    .hero-content h1 { font-size: 1.6rem; }
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+}
+
+.order-now-btn, .add-to-cart {
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+
+.btn-click-animate {
+    animation: bounce 0.3s ease-in-out;
+    background: #ff8c4b !important;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Header logo styling (ensure .logo has its intended appearance) */
+.logo, nav > .logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    transition-behavior: smooth;
+    letter-spacing: 0.6px;
+    z-index: 2; 
+    display: inline-block;
+}
+.logoo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-left: -325px;
+    color: var(--primary-orange);
+    text-transform: uppercase;
+    transition-behavior: smooth;
+    letter-spacing: 0.6px;
+    z-index: 2; 
+    display: inline-block;
+}
+.coffee-splash img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+nav ul { 
+    display: flex;
+    list-style: none; 
+    gap: 30px; 
+    background-color: white;
+    width: 23pc;
+    padding: 8px 20px;
+    border-radius: 30px;
+
+}
+nav ul li a {
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    padding-bottom: 8px; 
+    position: relative;
+    display: inline-block; 
+    transition: transform 160ms cubic-bezier(.2,.8,.2,1), color 160ms;
+    will-change: transform;
+}
+nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%) scale(0);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary-orange);
+    opacity: 0;
+    transition: transform 220ms cubic-bezier(.2,.8,.2,1), opacity 220ms;
+}
+
+nav ul li a:hover {
+    transform: translateY(-3px) scale(1.06);
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+nav ul li a.active {
+    transform: translateY(-3px) scale(1.06);
+}
+
+.testimonial-section {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.sub-title {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.main-title {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-top: 10px;
+}
+
+.testimonial-container {
+    position: relative;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 60px;
+}
+
+/* Profile Image */
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #f8f9fa;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.customer-name {
+    color: #444;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+/* Quote Styling */
+.quote-wrapper {
+    position: relative;
+    padding: 0 20px;
+}
+
+.quote-mark {
+    color: #ff9f43; /* Match your orange theme */
+    font-size: 4rem;
+    font-family: Georgia, serif;
+    position: absolute;
+    top: -30px;
+    left: 0;
+}
+
+.testimonial-text {
+    color: #666;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+/* Navigation Arrows */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #ff9f43;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-arrow:hover {
+    color: #e67e22;
+    transform: translateY(-50%) scale(1.2);
+}
+
+.left { left: 0; }
+.right { right: 0; }
+
+/* Testimonial slides behavior */
+.testimonial-content { position: relative; }
+.testimonial-slide { display: none; }
+.testimonial-slide.active { display: block; animation: fade 0.35s ease both; }
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Social Links */
+.social-links {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-links a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: #ff9f43;
+}
+.footer {
+    /* background image with a separate overlay for adjustable opacity */
+    position: relative;
+    background-image: url('footer.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: #fff;
+    padding: 48px 10%;
+    overflow: hidden;
+}
+.footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* change this rgba alpha to control how opaque the overlay is */
+    background: rgba(58, 55, 55, 0.9);
+    z-index: 0;
+}
+.footer .footer-grid,
+.footer .footer-bottom {
+    position: relative;
+    z-index: 1;
+}
+.footer .footer-grid {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.footer .col {
+    flex: 1 1 220px; /* responsive columns */
+    min-width: 200px;
+}
+.footer .logo-large { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+.social-icons { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 8px; }
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    text-decoration: none; /* ensure no underline for social links */
+}
+.social-icons a:hover { background-color:#fff; color: #121212; }
+.footer h4 { margin: 0 0 8px 0; font-size: 1rem; }
+.footer p, .footer li { margin: 6px 0; color: rgba(255,255,255,0.92); }
+.footer ul { list-style: none; padding: 0; margin: 0; }
+.footer a { color: inherit; text-decoration: none; }
+.footer a:hover { color: var(--primary-orange); }
+.footer .small { font-size: 0.9rem; opacity: 0.85; }
+.footer-bottom { margin-top: 22px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 16px; text-align: center; font-size: 0.9rem; opacity: 0.9; }
+
+</style>
+<body>
+
+
+<div class="header">
+    <nav>
+        <div class="logo">Cof</div>
+        <div class="logoo">fee</div>
+        <div class="coffee-splash">
+            <img src="logo.jpg" alt="" width="100px" height="100px" style="mix-blend-mode: multiply; margin-left: -500px;">
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="news.html" class="active">News</a></li>
+        </ul>
+        <div class="cart-container" style="color: white; font-size: 17pt; font-weight: 500;">Cart<i class="fa-solid fa-cart-arrow-down"></i><span id="cart-count"></span></div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Good Coffee Will Always Find The Audience</h1>
+            <p>We provide a variety of unique and Best Coffees</p>
+            <button class="order-now-btn">Order Now</button>
+        </div>
+    </section>
+</div>
+<section class="testimonial-section">
+    <span class="sub-title">TESTIMONIALS</span>
+    <h2 class="main-title">What our Customers say</h2>
+
+    <div class="testimonial-container">
+        <button class="nav-arrow left">&larr;</button>
+        <button class="nav-arrow right">&rarr;</button>
+
+        <div class="testimonial-content">
+            <div class="testimonial-slide active" data-index="0">
+                <div class="profile-pic">
+                    <img src="sano.jpg" alt="Sano Eric">
+                </div>
+                <h3 class="customer-name">Sano Eric</h3>
+                <div class="quote-wrapper">
+                    <span class="quote-mark">“</span>
+                    <p class="testimonial-text">
+                        I visit every weekday for their espresso — it's consistently delicious and never bitter. The baristas are knowledgeable and recommend beans based on what I like. Their almond croissant is my favorite; flaky, buttery, and baked fresh daily.
+                    </p>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" aria-label="Sano Eric on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Sano Eric on Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Sano Eric on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="testimonial-slide" data-index="1">
+                <div class="profile-pic">
+                    <img src="younus.jpg" alt="Nzamwita Younus">
+                </div>
+                <h3 class="customer-name">Nzamwita Younus</h3>
+                <div class="quote-wrapper">
+                    <span class="quote-mark">“</span>
+                    <p class="testimonial-text">
+                        We held a small book club here and the team went out of their way to set up a quiet corner. The honey-lavender latte was a highlight — subtle and fragrant. I appreciate that they support local roasters and always have something new to try.
+                    </p>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" aria-label="Younus on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Younus on Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="Younus on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="col">
+                <div class="logo-large">Coffee</div>
+                <p class="small">Taste the best coffee from around the world.</p>
+                <div class="social-icons" aria-label="Social media links">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li class="small">Email: <a href="mailto:info@tastecoffee.example">info@tastecoffee.example</a></li>
+                    <li class="small">Location: Kigali, Rwanda</li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h4>View Guides</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="news.html">News</a></li>
+                </ul>
+            </div>
+
+            <div class="col">
+                <h4>Opening Hours</h4>
+                <ul>
+                    <li class="small">Mon - Fri: 7:00 - 19:00</li>
+                    <li class="small">Sat: 8:00 - 17:00</li>
+                    <li class="small">Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; <span id="year"></span> Coffee. All rights reserved.</div>
+    </footer>
+
+
+<script>
+    // Testimonial slider
+    (function() {
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const prevBtn = document.querySelector('.nav-arrow.left');
+        const nextBtn = document.querySelector('.nav-arrow.right');
+        let current = 0;
+
+        function show(index) {
+            slides.forEach((s, i) => {
+                s.classList.toggle('active', i === index);
+            });
+            current = index;
+        }
+
+        function next() {
+            show((current + 1) % slides.length);
+        }
+
+        function prev() {
+            show((current - 1 + slides.length) % slides.length);
+        }
+
+        prevBtn && prevBtn.addEventListener('click', prev);
+        nextBtn && nextBtn.addEventListener('click', next);
+
+        // keyboard support (left/right arrows)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') prev();
+            if (e.key === 'ArrowRight') next();
+        });
+    })();
+</script>
+    
+</body>
+</html>
